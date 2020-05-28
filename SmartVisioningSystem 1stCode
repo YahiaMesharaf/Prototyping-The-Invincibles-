@@ -1,0 +1,33 @@
+int SVS_on();
+int main_camera_on();
+int main_camera_off();
+int night_vision_on();
+int night_vision_off();
+int infrared_on();
+int infrared_off();
+int connection_with_main_controller();
+int data_processing();
+int video_stream();
+
+void main()
+{
+  int brightness, resolution, x, y;
+  
+  while(SVS_on()){
+  main_camera_on();
+  
+  if(brightness <x){ 
+  night_vision_on();
+  main_camera_off();
+  }
+ 
+  if(resolution <y){
+  infrared_on;
+  main_camera_off();
+  }
+
+  video_stream();
+  connection_with_main_controller();
+  data_processing();
+ }
+}
