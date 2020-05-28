@@ -1,4 +1,4 @@
-int SVS_on();
+int svs_on();
 int main_camera_on();
 int main_camera_off();
 int night_vision_on();
@@ -13,7 +13,7 @@ void main()
 {
   int brightness, resolution, x, y;
   
-  while(SVS_on()){
+  while(svs_on()){
   main_camera_on();
   
   if(brightness <x){ 
