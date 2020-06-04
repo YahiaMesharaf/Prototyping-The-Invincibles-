@@ -1,8 +1,9 @@
 #include <iostream>
 
 void Drive() {
-	
 }
+
+vector<int> robot_position = Robot.getPosition();
 
 bool checkRescueRobot() {
 	if(driveAbleOnWature)
