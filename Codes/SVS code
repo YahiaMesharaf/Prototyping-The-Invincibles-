@@ -1,0 +1,40 @@
+Smart Visionig system code
+int normal_mode=2;
+int night_mode=3;
+int infrared_mode=4;
+int bri_standard=150;
+int res_standard=200;
+int brightness;
+int resolution;
+
+
+void setup()
+{
+  pinMode(2, OUTPUT);
+  pinMode(3, OUTPUT);
+  pinMode(4, OUTPUT);
+}
+
+void loop()
+{
+  digitalWrite(2, HIGH);
+  
+  brightness = 30;
+  resolution = 30;
+  
+  if (brightness < bri_standard)
+  {
+  digitalWrite(2, LOW);
+  digitalWrite(3, HIGH);
+  }
+  
+  if (resolution < res_standard)
+  {
+  digitalWrite(2, LOW);
+  digitalWrite(3, LOW);
+  digitalWrite(4, HIGH);
+  }
+  
+  delay(15000);
+  
+}
