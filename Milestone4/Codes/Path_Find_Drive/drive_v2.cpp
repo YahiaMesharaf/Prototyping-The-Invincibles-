@@ -102,5 +102,5 @@ void Drive() {
     std::cout<<"Water Mode Drive Activted \n";
   }
   //Call the Astar function to get the shortest path to take
-  Search(environment, init, goal);
+  Search(drivePath, init, goal);
 }
