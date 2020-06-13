@@ -91,6 +91,8 @@ void ActivatePropeller()
 void Drive() {
     //Get the Map
     auto driveMap = ReadBoardFile("environment.board");
+
+    //Check for the drivemode to be activated
     if (waterValue <= 0)  {
         ActivateDC();
         std::cout<<"Land Mode Drive Activted \n";
@@ -99,5 +101,6 @@ void Drive() {
     ActivatePropeller();
     std::cout<<"Water Mode Drive Activted \n";
   }
+  //Call the Astar function to get the shortest path to take
   Search(environment, init, goal);
 }
