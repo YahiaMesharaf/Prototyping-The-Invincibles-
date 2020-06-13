@@ -17,7 +17,6 @@ enum class State {sEmpty, sObstacle, sClosed, sPath, sInit, sObject};
 // directional deltas
 const int delta[4][2]{{-1, 0}, {0, -1}, {1, 0}, {0, 1}};
 
-
 vector<State> ParseLine(string line) {
     istringstream sline(line);
     int n;
@@ -46,7 +45,6 @@ vector<vector<State>> ReadBoardFile(string path) {
   return board;
 }
 
-
 /**
  * Compare the F values of two cells.
  */
@@ -56,7 +54,6 @@ bool Compare(const vector<int> a, const vector<int> b) {
   return f1 > f2; 
 }
 
-
 /**
  * Sort the two-dimensional vector of ints in descending order.
  */
@@ -64,13 +61,11 @@ void CellSort(vector<vector<int>> *v) {
   sort(v->begin(), v->end(), Compare);
 }
 
-
 // Calculate the manhattan distance
 int Heuristic(int x1, int y1, int x2, int y2) {
   int mDist = abs(x2 - x1) + abs(y2 - y1);
   return mDist;
 }
-
 
 /** 
  * Check that a cell is valid: on the environment, not an obstacle, and clear. 
@@ -83,7 +78,6 @@ bool CheckValidCell(int x, int y, vector<vector<State>> &environment) {
   return false;
 }
 
-
 /** 
  * Add a node to the open list and mark it as open. 
  */
@@ -92,7 +86,6 @@ void AddToOpen(int x, int y, int g, int h, vector<vector<int>> &openlist, vector
   openlist.emplace_back(vector<int>{x, y, g, h});
   environment[x][y] = State::sClosed;
 }
-
 
 /** 
  * Expand current nodes's neighbors and add them to the open list.
@@ -117,7 +110,6 @@ void ExpandNeighbors(const vector<int> &current, int goal[2], vector<vector<int>
     }
   }
 }
-
 
 /** 
  * Implementation of A* search algorithm
@@ -152,12 +144,11 @@ vector<vector<State>> Search(vector<vector<State>> environment, int init[2], int
     // If we're not done, expand search to current node's neighbors.
     ExpandNeighbors(current, goal, open, environment);
   }
-  
+
   // We've run out of new nodes to explore and haven't found a path.
   cout << "No path found!" << "\n";
   return std::vector<vector<State>>{};
 }
-
 
 string CellString(State cell) {
   switch(cell) {
@@ -168,7 +159,6 @@ string CellString(State cell) {
     default: return "0   ";  
   }
 }
-
 
 void PrintBoard(const vector<vector<State>> board) {
   for (int i = 0; i < board.size(); i++) {
