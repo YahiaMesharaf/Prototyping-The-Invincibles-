@@ -1,3 +1,5 @@
+#include "pathfind.h"
+
 #include <algorithm> 
 #include <fstream>
 #include <iostream>
@@ -12,7 +14,7 @@ using std::string;
 using std::vector;
 using std::abs;
 
-enum class State {sEmpty, sObstacle, sClosed, sPath, sInit, sObject};
+// enum class State {sEmpty, sObstacle, sClosed, sPath, sInit, sObject};
 
 // directional deltas
 const int delta[4][2]{{-1, 0}, {0, -1}, {1, 0}, {0, 1}};
@@ -87,6 +89,7 @@ void AddToOpen(int x, int y, int g, int h, vector<vector<int>> &openlist, vector
   environment[x][y] = State::sClosed;
 }
 
+
 /** 
  * Expand current nodes's neighbors and add them to the open list.
  */
@@ -95,7 +98,7 @@ void ExpandNeighbors(const vector<int> &current, int goal[2], vector<vector<int>
   int x = current[0];
   int y = current[1];
   int g = current[2];
-
+  
   // Loop through current node's potential neighbors.
   for (int i = 0; i < 4; i++) {
     int x2 = x + delta[i][0];
@@ -110,6 +113,7 @@ void ExpandNeighbors(const vector<int> &current, int goal[2], vector<vector<int>
     }
   }
 }
+
 
 /** 
  * Implementation of A* search algorithm
@@ -144,11 +148,12 @@ vector<vector<State>> Search(vector<vector<State>> environment, int init[2], int
     // If we're not done, expand search to current node's neighbors.
     ExpandNeighbors(current, goal, open, environment);
   }
-
+  
   // We've run out of new nodes to explore and haven't found a path.
   cout << "No path found!" << "\n";
   return std::vector<vector<State>>{};
 }
+
 
 string CellString(State cell) {
   switch(cell) {
@@ -159,6 +164,7 @@ string CellString(State cell) {
     default: return "0   ";  
   }
 }
+
 
 void PrintBoard(const vector<vector<State>> board) {
   for (int i = 0; i < board.size(); i++) {
