@@ -89,10 +89,11 @@ void ActivatePropeller()
 }
 
 void Drive() {
-    auto drivePath = ReadBoardFile("environment.board");
+    //Get the Map
+    auto driveMap = ReadBoardFile("environment.board");
     if (waterValue <= 0)  {
         ActivateDC();
-        std::cout<<"Water Mode Drive Activted \n";
+        std::cout<<"Land Mode Drive Activted \n";
     }
   } else {
     ActivatePropeller();
