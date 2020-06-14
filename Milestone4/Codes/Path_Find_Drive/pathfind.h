@@ -1,7 +1,7 @@
 #ifndef PATHFIND_H
 #define PATHFIND_H
 
-#include <algorithm> 
+#include <algorithm>
 #include <fstream>
 #include <iostream>
 #include <sstream>
@@ -26,5 +26,5 @@ void AddToOpen(int x, int y, int g, int h, vector<vector<int>> &openlist, vector
 void ExpandNeighbors(const vector<int> &current, int goal[2], vector<vector<int>> &openlist, vector<vector<State>> &environment);
 vector<vector<State>> Search(vector<vector<State>> environment, int init[2], int goal[2]);
 string CellString(State cell);
-void PrintBoard(const vector<vector<State>> board);
+void PrintDriveMap(const vector<vector<State>> board);
 #endif

@@ -1,107 +1,52 @@
-#include <Arduino.h>
-#include<iostream>
 #include "pathfind.h"
 
-#define pwm 2
-#define in_1 8
-#define in_2 9
-#define waterSens A0
+#include <iostream>
+#include <vector>
+#include <string>
 
-int waterValue;
-int init[2]{0,0};
-int goal[2]{4,5};
+using std::cout;
+using std::string;
+using std::vector;
 
-void setup()
-{
-  // put your setup code here, to run once:
-  pinMode(pwm, OUTPUT);
-  pinMode(in_1, OUTPUT);
-  pinMode(in_2, OUTPUT);
-  pinMode(waterSens, INPUT);
-}
-
-void loop()
-{
-  // put your main code here, to run repeatedly:
-  waterValue = analogRead(waterSens); 
-  Drive();
-}
+int waterValue = 1;
+bool driveableOnWater = false;
+vector<string> obstacles{};
 
 void ActivateDC()
 {
-
-  //for clock wise motion
-
-  digitalWrite(in_1, HIGH);
-  digitalWrite(in_2, LOW);
-  analogWrite(pwm, 130);
-
-  //delay for 3 sec Clock wise motion
-
-  delay(1000);
-
-  //for break
-
-  digitalWrite(in_1, HIGH);
-  digitalWrite(in_2, HIGH);
-  delay(200);
-
-  //for anticlock wise
-
-  digitalWrite(in_1, LOW);
-  digitalWrite(in_2, HIGH);
-  delay(3000);
-
-  //for break
-
-  digitalWrite(in_1, HIGH);
-  digitalWrite(in_2, HIGH);
-  delay(200);
+    cout << "DC Active, Road Mode Activated\n";
 }
-
 void ActivatePropeller()
 {
-
-  digitalWrite(in_1, HIGH);
-  digitalWrite(in_2, LOW);
-  analogWrite(pwm, 130);
-
-  //delay for 3 sec Clock wise motion
-
-  delay(1000);
-
-  //for break
-
-  digitalWrite(in_1, HIGH);
-  digitalWrite(in_2, HIGH);
-  delay(200);
-
-  //for anticlock wise
-
-  digitalWrite(in_1, LOW);
-  digitalWrite(in_2, HIGH);
-  delay(3000);
-
-  //for break
-
-  digitalWrite(in_1, HIGH);
-  digitalWrite(in_2, HIGH);
-  delay(200);
+    cout << "Propeller Active, Water Mode Activated\n";
 }
 
-void Drive() {
-    //Get the Map
-    auto driveMap = ReadBoardFile("environment.board");
-
-    //Check for the drive mode to be activated
-    if (waterValue <= 0)  {
-        ActivateDC();
-        std::cout<<"Land Mode Drive Activated \n";
+void Drive()
+{
+    if (driveableOnWater)
+    {
+        if (waterValue <= 0)
+        {
+            ActivateDC();
+        }
+        else
+        {
+            ActivatePropeller();
+        }
     }
-  } else {
-    ActivatePropeller();
-    std::cout<<"Water Mode Drive Activated \n";
-  }
-  //Call the Astar function to get the shortest path to take
-  Search(drivePath, init, goal);
+    else
+    {
+        //Define Water as an obstacle
+        obstacles.emplace_back("Water");
+        cout << "Cannot Drive on Water\n";
+    }
+}
+
+int main()
+{
+    auto driveMap = ReadBoardFile("environment.board");
+    int init[2]{0, 0};
+    int goal[2]{4, 5};
+    Drive();
+    PrintDriveMap(Search(driveMap, init, goal));
 }
