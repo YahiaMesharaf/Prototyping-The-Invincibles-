@@ -9,7 +9,7 @@ using std::string;
 using std::vector;
 
 int waterValue = 1;
-bool driveableOnWater = false;
+bool driveableOnWater = true;
 vector<string> obstacles{};
 
 void ActivateDC()
@@ -44,9 +44,10 @@ void Drive()
 
 int main()
 {
+    Drive();
     auto driveMap = ReadBoardFile("environment.board");
     int init[2]{0, 0};
     int goal[2]{4, 5};
-    Drive();
-    PrintDriveMap(Search(driveMap, init, goal));
+    auto drivePath = (Search(driveMap, init, goal));
+    PrintDriveMap(drivePath);
 }
