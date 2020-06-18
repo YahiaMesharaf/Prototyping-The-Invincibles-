@@ -171,11 +171,3 @@ void PrintDriveMap(const vector<vector<State>> board) {
         cout << "\n";
     }
 }
-
-int main() {
-    int init[2]{0,0};
-    int goal[2]{4,5};
-    auto board = ReadBoardFile("environment.board");
-    auto solution = Search(board, init, goal);
-    PrintDriveMap(solution);
-}
